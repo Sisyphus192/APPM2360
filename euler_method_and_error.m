@@ -8,31 +8,62 @@ x = 0:0.01:48
 y1 = 15000*exp(-0.2*x)
 
 figure
-semilogy(x,y1, 'Color', [135/255,86/255,146/255])
+semilogy(x,y1, 'Color', [135/255,86/255,146/255], 'LineWidth', 2)
 hold on
 
 h = 0.01
-semilogy(0:h:48, ode_euler(N_A_prime, 0:h:48, A_0), 'Color', [243/255,132/255,0])
+semilogy(0:h:48, ode_euler(N_A_prime, 0:h:48, A_0), 'Color', [243/255,132/255,0], 'LineWidth', 2)
 x = 0:h:48
 y1 = 15000*exp(-0.2*x)
-semilogy(0:h:48, abs(y1 - ode_euler(N_A_prime, 0:h:48, A_0)), 'Color', [243/255,132/255,0])
+semilogy(0:h:48, abs(y1 - ode_euler(N_A_prime, 0:h:48, A_0)), 'Color', [0,136/255,86/255], 'LineWidth', 2)
 
 h = 0.1
-semilogy(0:h:48, ode_euler(N_A_prime, 0:h:48, A_0), 'Color', [161/255,202/255,241/255])
+semilogy(0:h:48, ode_euler(N_A_prime, 0:h:48, A_0), 'Color', [161/255,202/255,241/255], 'LineWidth', 2)
 x = 0:h:48
 y1 = 15000*exp(-0.2*x)
-semilogy(0:h:48, abs(y1 - ode_euler(N_A_prime, 0:h:48, A_0)), 'Color', [161/255,202/255,241/255])
+semilogy(0:h:48, abs(y1 - ode_euler(N_A_prime, 0:h:48, A_0)), 'Color', [132/255,132/255,130/255], 'LineWidth', 2)
 
 h = 1
-semilogy(0:h:48, ode_euler(N_A_prime, 0:h:48, A_0), 'Color', [190/255,0,50/255])
+semilogy(0:h:48, ode_euler(N_A_prime, 0:h:48, A_0), 'Color', [190/255,0,50/255], 'LineWidth', 2)
 x = 0:h:48
 y1 = 15000*exp(-0.2*x)
-semilogy(0:h:48, abs(y1 - ode_euler(N_A_prime, 0:h:48, A_0)), 'Color', [190/255,0,50/255])
+semilogy(0:h:48, abs(y1 - ode_euler(N_A_prime, 0:h:48, A_0)), 'Color', [194/255,178/255,128/255], 'LineWidth', 2)
 
 
 hold off
-legend('h=analytical','h=1','h=1 abs error','h=0.1', 'h=0.1 abs error', 'h=0.01', 'h=0.01 abs error')
-title("N_{A}' = -k_{A} * N_{A}(t)")
-ylabel('N_{A}')
+legend('h=analytical','h=0.01','h=0.01 abs error','h=0.1', 'h=0.1 abs error', 'h=1', 'h=1 abs error')
+title("Euler Approximations And Their Error")
+ylabel('# of Atoms')
+xlabel('t')
+axis tight
+
+x = 45:0.01:48
+y1 = 15000*exp(-0.2*x)
+figure
+semilogy(x,y1, 'Color', [135/255,86/255,146/255], 'LineWidth', 2)
+hold on
+
+h = 0.01
+semilogy(45:h:48, ode_euler(N_A_prime, 45:h:48, y1(1)), 'Color', [243/255,132/255,0], 'LineWidth', 2)
+x = 45:h:48
+y1 = 15000*exp(-0.2*x)
+
+
+h = 0.1
+semilogy(45:h:48, ode_euler(N_A_prime, 45:h:48, y1(1)), 'Color', [161/255,202/255,241/255], 'LineWidth', 2)
+x = 45:h:48
+y1 = 15000*exp(-0.2*x)
+
+
+h = 1
+semilogy(45:h:48, ode_euler(N_A_prime, 45:h:48, y1(1)), 'Color', [190/255,0,50/255], 'LineWidth', 2)
+x = 45:h:48
+y1 = 15000*exp(-0.2*x)
+
+
+hold off
+legend('h=analytical','h=0.01','h=0.1', 'h=1')
+title("Euler Approximations And Their Error")
+ylabel('# of Atoms')
 xlabel('t')
 axis tight
