@@ -13,10 +13,10 @@ y3 = ode_euler(N_A_prime, t(1:10:end), A_0); % h = 0.1
 y4 = ode_euler(N_A_prime, t(1:100:end), A_0); % h = 1
 
 % Colors for the lines that will be plotted
-colors = [29, 29, 29;
-          235, 206, 43;
+colors = [235, 206, 43;
           112, 44, 140;
-          219, 105, 23]/255;
+          219, 105, 23;
+          150, 205, 230]/255;
 
 % Set the figure properties
 fig = figure(1);
@@ -54,9 +54,9 @@ ax.Color = [253, 253, 253]/255;
 ax.YMinorGrid = 'off';
 
 % Adjust these settings to switch from linear to log
-%ax.YScale = 'log';
-ax.YTick = [1, 3000, 6000, 9000, 12000, 15000];
-%ax.YTick = round(logspace(log10(1), log10(15000), 6));
+ax.YScale = 'log';
+%ax.YTick = [1, 3000, 6000, 9000, 12000, 15000];
+ax.YTick = round(logspace(log10(1), log10(15000), 6));
 
 
 

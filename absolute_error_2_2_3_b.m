@@ -12,11 +12,10 @@ y2 = abs(y1 - ode_euler(N_A_prime, t, A_0)); % h = 0.01
 y3 = abs(y1(1:10:end) - ode_euler(N_A_prime, t(1:10:end), A_0)); % h = 0.1
 y4 = abs(y1(1:100:end) - ode_euler(N_A_prime, t(1:100:end), A_0)); % h = 1
 
-
 % Colors for the lines that will be plotted
-colors = [235, 206, 43;
-          112, 44, 140;
-          219, 105, 23]/255;
+colors = [112, 44, 140;
+          219, 105, 23;
+          150, 205, 230]/255;
 
 % Set the figure properties
 fig = figure(1);
@@ -39,7 +38,7 @@ ax = gca;
 ax.FontName = 'LaTeX';
 ax.TickLabelInterpreter = 'LaTeX';
 ax.FontSize = 16;
-ax.YLim = [1, inf];
+ax.YLim = [1, 605];
 ax.XLabel.Interpreter = 'LaTeX';
 ax.YLabel.Interpreter = 'LaTeX';
 ax.YLabel.String = 'Absolute Error (Number of Atoms of Element A)';
@@ -55,6 +54,7 @@ ax.YMinorGrid = 'off';
 
 % Adjust this settings to switch from linear to log
 ax.YScale = 'log';
+ax.YTick = [1, 6, 56, 603];
 
 
 

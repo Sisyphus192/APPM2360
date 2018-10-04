@@ -11,8 +11,6 @@ y1 = A_0 * exp(-k_A * t); % N_A(t)
 y2 = ((A_0 * k_A) / (k_B - k_A)) * (exp(-k_A * t) - exp(-k_B * t)); % N_B(t)
 y3 = (A_0 / (k_B - k_A)) * (k_A * exp(-k_B * t) - k_B * exp(-k_A * t)) + A_0; % N_C(t)
 
-
-
 % Colors for the lines that will be plotted
 colors = [235, 206, 43;
           112, 44, 140;
@@ -42,7 +40,7 @@ ax.FontSize = 16;
 ax.YLim = [1, 15000];
 ax.XLabel.Interpreter = 'LaTeX';
 ax.YLabel.Interpreter = 'LaTeX';
-ax.YLabel.String = 'Absolute Error (Number of Atoms of Element A)';
+ax.YLabel.String = 'Number of Atoms';
 ax.XLabel.String = 't (seconds)';
 ax.ColorOrder = colors;
 ax.Box = 'off';
@@ -54,9 +52,9 @@ ax.Color = [253, 253, 253]/255;
 ax.YMinorGrid = 'off';
 
 % Adjust this settings to switch from linear to log
-%ax.YScale = 'log';
-ax.YTick = [1, 3000, 6000, 9000, 12000, 15000];
-%ax.YTick = round(logspace(log10(1), log10(15000), 6));
+ax.YScale = 'log';
+%ax.YTick = [1, 3000, 6000, 9000, 12000, 15000];
+ax.YTick = round(logspace(log10(1), log10(15000), 6));
 
 
 
@@ -71,9 +69,8 @@ p = [plot(t, y1); % N_A(t)
 set(p, 'LineWidth', 2);
 
 % Add a legend
-lgd = legend('Absolute Error @h=0.01','Absolute Error @h=0.1','Absolute Error @h=1');
+lgd = legend('N_{A}(t)','N_{B}(t)','N_{C}(t)');
 lgd.Box = 'off';
-lgd.Interpreter = 'LaTeX';
 lgd.TextColor = [29, 29, 29]/255;
 
-t = title("Absolute Error of Euler Method Approximation of N_{A}(t)");
+t = title("N_{A}, N_{B}, and N_{C} Over Time");

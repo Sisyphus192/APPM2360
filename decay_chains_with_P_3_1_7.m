@@ -44,7 +44,7 @@ ax.FontSize = 16;
 ax.YLim = [15000, 450000];
 ax.XLabel.Interpreter = 'LaTeX';
 ax.YLabel.Interpreter = 'LaTeX';
-ax.YLabel.String = 'Number of Atoms of Element A';
+ax.YLabel.String = 'Number of Atoms';
 ax.XLabel.String = 't (seconds)';
 ax.ColorOrder = colors;
 ax.Box = 'off';
@@ -58,7 +58,8 @@ ax.YMinorGrid = 'off';
 % Adjust these settings to switch from linear to log
 ax.YScale = 'log';
 %ax.YTick = [1, 15000, 25000, 50000, 75000];
-ax.YTick = [15000, 25000, 75000, 200000, 300000, 450000];
+%ax.YTickLabel = [1, 15000, 25000, 50000, 75000];
+ax.YTick = [15000, 25000, 75000, 200000, 450000];
 
 
 
