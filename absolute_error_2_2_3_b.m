@@ -1,5 +1,9 @@
 clear all;
 
+% This file calculates and plots the absolute error of the euler
+% approximations in both linear and semilogy scales. This file was used to
+% solve problem 2.2.3 in Project 1 for APPM 2360 Fall 2018
+
 % Define constants and N_A'(t)
 k_A = 1/5;
 A_0 = 15000;
@@ -55,9 +59,6 @@ ax.YMinorGrid = 'off';
 % Adjust this settings to switch from linear to log
 ax.YScale = 'log';
 ax.YTick = [1, 6, 56, 603];
-
-
-
 
 % Plot the functions
 hold on;

@@ -1,5 +1,10 @@
 clear all;
 
+% This file calculates and plots the euler approximations for elements A,
+% B, and C when A is added at a constant rate P in both linear and semilogy
+% scales. This file was used to solve problem 3.1.7 in Project 1 for APPM
+% 2360 Fall 2018
+
 % Define constants and N_A'(t)
 k_A = 1/5;
 k_B = 1/15;
@@ -61,9 +66,6 @@ ax.YScale = 'log';
 %ax.YTickLabel = [1, 15000, 25000, 50000, 75000];
 ax.YTick = [15000, 25000, 75000, 200000, 450000];
 
-
-
-
 % Plot the functions
 hold on;
 p = [plot(t, y1); % N_A(t) w/ P
@@ -80,5 +82,3 @@ lgd.TextColor = [29, 29, 29]/255;
 lgd.Location = 'northwest';
 
 t = title("Euler Method Approximation of N_{A}(t), N_{B}(t), and N_{C}(t) (with P)");
-
-

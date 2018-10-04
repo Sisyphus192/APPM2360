@@ -1,5 +1,9 @@
 clear all;
 
+% This file plots the analytical solutions to the decay chain of element A
+% into B into C in linear and semilogy scales. This file was used to solve
+% problem 3.1.4 in Project 1 for APPM 2360 Fall 2018.
+
 % Define constants and N_A'(t)
 k_A = 1/5;
 k_B = 1/15;
@@ -55,9 +59,6 @@ ax.YMinorGrid = 'off';
 ax.YScale = 'log';
 %ax.YTick = [1, 3000, 6000, 9000, 12000, 15000];
 ax.YTick = round(logspace(log10(1), log10(15000), 6));
-
-
-
 
 % Plot the functions
 hold on;

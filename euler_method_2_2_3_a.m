@@ -1,5 +1,9 @@
 clear all;
 
+% This file calculates and plots the analytical and euler approximations
+% for element a in linear and semilogy scales. This file was used to solve
+% prolem 2.2.3 in Project 1 for APPM 2360 Fall 2018
+
 % Define constants and N_A'(t)
 k_A = 1/5;
 A_0 = 15000;
@@ -58,9 +62,6 @@ ax.YScale = 'log';
 %ax.YTick = [1, 3000, 6000, 9000, 12000, 15000];
 ax.YTick = round(logspace(log10(1), log10(15000), 6));
 
-
-
-
 % Plot the functions
 hold on;
 p = [plot(t, y1); % exact solution
@@ -78,5 +79,3 @@ lgd.Interpreter = 'LaTeX';
 lgd.TextColor = [29, 29, 29]/255;
 
 t = title("Euler Method Approximation of N_{A}(t)");
-
-
