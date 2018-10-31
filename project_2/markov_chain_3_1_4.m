@@ -5,16 +5,17 @@ clear all;
 % in Project 2 for APPM 2360 Fall 2018
 
 % Create right transition matrix A 
-A = [0.5, 0.25, 0.25, 0; 
-     0.5, 0.5, 0, 0;
-     0.5/3, 0.5/3, 0.5, 0.5/3;
-     0, 0, 0.5, 0.5];
-[1, 0, 0, 0] * A 
+A = [0.5, 0.25, 0.25, 0, 0;
+     0.5, 0.5, 0, 0, 0; 
+     0.5/3, 0.5/3, 0.5, 0.5/3, 0; 
+     0, 0, 0.25, 0.5, 0.25; 
+     0, 0, 0, 0, 1];
+[1, 0, 0, 0, 0] * A 
 % Get array of state distributions
-x = linspace(1,100,100)
-y = zeros(1, 4, 100);
+x = linspace(1,250,250)
+y = zeros(1, 5, 250);
 for ii = x
-    temp_mat = [1, 0, 0, 0] * A^ii;
+    temp_mat = [1, 0, 0, 0, 0] * A^ii;
      y(:,:,ii) = temp_mat;
 end
 
@@ -22,7 +23,8 @@ end
 colors = [235, 206, 43;
           112, 44, 140;
           219, 105, 23;
-          150, 205, 230]/255;
+          150, 205, 230;
+          186, 28, 48]/255;
       
 % Set the figure properties
 fig = figure(1);
@@ -63,16 +65,15 @@ ax.YMinorGrid = 'off';
       
 
 hold on
-p = plot(x, reshape(y(1,:,:),[4,100]))
+p = plot(x, reshape(y(1,:,:),[5,250]))
 
 % Set line widths
 set(p, 'LineWidth', 2);
 
 % Add a legend
-lgd = legend('colorado.edu', 'colorado.edu/map','colorado.edu/amath', 'colorado.edu/amath/2360');
+lgd = legend('colorado.edu', 'colorado.edu/map','colorado.edu/amath', 'colorado.edu/amath/2360', 'colorado.edu/project2.pdf');
 lgd.Box = 'off';
 lgd.TextColor = [29, 29, 29]/255;
-lgd.Location = 'northwest';
+lgd.Location = 'east';
 
-t = title("Probability that user is on one of four pages after n steps");
-
+t = title("Probability that user is on one of five pages after n steps");
