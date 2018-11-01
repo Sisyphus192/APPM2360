@@ -1,6 +1,6 @@
 clear all;
 
-% This file calculates and plots the markov chain of the model internet.
+% This file calculates and plots the markov chain of the model internet with four pages.
 % Ths file was used to solve problem 2.1.1 in Project 2 for APPM 2360 Fall 2018
 
 % Create right transition matrix A and markov chain object
@@ -39,7 +39,7 @@ hold on
 axis off
 
 graphplot(mc,'ColorNodes',true,'ColorEdges',true, 'LabelEdges',true)
-t = title("Modelling four webpages as a Markov Chain");
+t = title("Modelling Four Webpages as a Markov Chain");
 
  
 

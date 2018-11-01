@@ -1,8 +1,8 @@
 clear all;
 
-% This file calculates and plots the probability you are on each of the
-% four pages at a given iteration. Ths file was used to solve problem 3.1.1
-% in Project 2 for APPM 2360 Fall 2018
+% This file calculates and plots the absolute error in probability you are 
+% on each of the five pages at a given iteration. Ths file was used to solve
+% problem 3.1.5 in Project 2 for APPM 2360 Fall 2018
 
 % Create right transition matrix A 
 A = [0.5, 0.25, 0.25, 0, 0;

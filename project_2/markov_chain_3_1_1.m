@@ -49,8 +49,8 @@ ax.YLim = [0, 1];
 ax.YTick = [0, 0.25, 0.5, 0.75, 1];
 ax.XLabel.Interpreter = 'LaTeX';
 ax.YLabel.Interpreter = 'LaTeX';
-ax.YLabel.String = 'Probability of being on page';
-ax.XLabel.String = 'steps';
+ax.YLabel.String = 'Probability of Being on Page';
+ax.XLabel.String = 'Steps';
 ax.ColorOrder = colors;
 ax.Box = 'off';
 ax.LineWidth = 1.5;
@@ -74,5 +74,5 @@ lgd.Box = 'off';
 lgd.TextColor = [29, 29, 29]/255;
 lgd.Location = 'northwest';
 
-t = title("Probability that user is on one of four pages after n steps");
+t = title("Probability That User Is on One of Four Pages After n Steps");
 
