@@ -1,0 +1,97 @@
+clear all;
+
+% This file calculates and plots the nullcline for problem 3.1.1 c
+
+% Define constants and our DEs
+a = 0.15;
+k = 8;
+mu_1 = 0.2;
+mu_2 = 0.3;
+epsilon_0 = 0.002;
+S = 0;
+dvdt = @(v,h)  k.*v.*(a - v).*(v - 1) - h.*v + S;
+dhdt = @(v,h) -(epsilon_0 + (h.*mu_1)./(mu_2 + v)).*(h - k.*v.*(a - v + 1));
+
+% Generate our vector field
+v = linspace(-0.05, 1.2, 126);
+h = linspace(-0.05, 2.75, 281); 
+[V, H] = meshgrid(v(1:8:end),h(1:8:end));
+dv = dvdt(V,H)./sqrt(dvdt(V,H).^2 + dhdt(V,H).^2);
+dh = dhdt(V,H)./sqrt(dvdt(V,H).^2 + dhdt(V,H).^2);
+
+% Plot our sample solutions
+tspan = [0 500];
+x=zeros(1,2);
+f=@(t,x) [k.*x(1).*(a - x(1)).*(x(1) - 1) - x(2).*x(1) + S; ...
+          -(epsilon_0 + (x(2)*mu_1)/(mu_2 + x(1)))*(x(2) - k*x(1)*(a - x(1) + 1))];
+[t,y1] = ode45(f,tspan, [0.5 0.2]);
+[t,y2] = ode45(f,tspan, [0.1 0.2]);
+
+% Colors for the lines that will be plotted
+colors = [219, 105, 23;
+          219, 105, 23;
+          95, 166, 65;
+          95, 166, 65]/255;
+
+% Set the figure properties
+fig = figure(1);
+fig.Resize = 'off';
+fig.PaperUnits = 'inches';
+fig.Units = 'inches';
+fig.PaperPositionMode = 'manual';
+fig.PaperPosition = [0, 0, 10, 6.18];
+fig.PaperSize = [10, 6.18];
+fig.Position = [0.1, 0.1, 9.9, 6.08];
+
+% Background color
+fig.Color = [253, 253, 253]/255;
+
+% Prevent the background color from chaning on save
+fig.InvertHardcopy = 'off';
+
+% Set axes properties
+ax = gca;
+ax.FontName = 'LaTeX';
+ax.TickLabelInterpreter = 'LaTeX';
+ax.FontSize = 16;
+ax.YLim = [-0.05, 2.75];
+ax.XLim = [-0.05, 1.2];
+ax.XLabel.Interpreter = 'LaTeX';
+ax.YLabel.Interpreter = 'LaTeX';
+ax.YLabel.String = 'Gating Variable (h)';
+ax.XLabel.String = 'Voltage (v)';
+ax.ColorOrder = colors;
+ax.Box = 'off';
+ax.LineWidth = 1.5;
+ax.YGrid = 'on';
+ax.XColor = [29, 29, 29]/255;
+ax.YColor = [29, 29, 29]/255;
+ax.Color = [253, 253, 253]/255;
+ax.YMinorGrid = 'off';
+
+% Plot the functions
+hold on;
+
+
+p = [plot(y1(:,1),y1(:,2)); % sample solutio starting at (0.5,0.2)
+     plot(y1(1,1),y1(1,2),'o'); % Starting point
+     plot(y2(:,1),y2(:,2)); % sample solution starting at (0.1,0.2)
+     plot(y2(1,1),y2(1,2),'o'); % Starting point
+     quiver(v(1:8:end),h(1:8:end),dv,dh, 'AutoScaleFactor',0.5, 'color', [112,44,140]/255)]; % Vector Field
+
+% Set line widths
+set(p(1:4), 'LineWidth', 2);
+
+% Add a legend
+lgd = legend([p(1), p(3), p(5)],...
+             'Sample solution starting @$(v_0,h_0)=(0.5,0.2)$', ... 
+             'Sample solution starting @$(v_0,h_0)=(0.1,0.2)$',...
+             'Vector Field');
+lgd.Box = 'on';
+lgd.Interpreter = 'LaTeX';
+lgd.TextColor = [29, 29, 29]/255;
+lgd.Location = 'best';
+
+t = title("Vector Field and Sample Solutions");
+t.Color = [29, 29, 29]/255;
+t.Interpreter = 'LaTeX';
