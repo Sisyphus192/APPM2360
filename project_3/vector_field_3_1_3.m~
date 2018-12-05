@@ -32,7 +32,7 @@ f=@(t,x) [k.*x(1).*(a - x(1)).*(x(1) - 1) - x(2).*x(1) + S; ...
 
 % Colors for the lines that will be plotted
 colors = [219, 105, 23;
-          161, 202, 241]/255;
+          95, 166, 65]/255;
 
 % Set the figure properties
 fig = figure(1);
@@ -89,7 +89,7 @@ lgd = legend([p(1), p(3), p(5)],...
 lgd.Box = 'on';
 lgd.Interpreter = 'LaTeX';
 lgd.TextColor = [29, 29, 29]/255;
-lgd.Location = 'northeast';
+lgd.Location = 'best';
 
 t = title("Vector Field and Sample Solutions");
 t.Color = [29, 29, 29]/255;

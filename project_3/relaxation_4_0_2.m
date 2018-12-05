@@ -1,8 +1,8 @@
 clear all;
 sympref('HeavisideAtOrigin',1); % matlab system variable 
 
-% This file calculates and plots the steady state Action Potential Duration
-% across various stimulation periods. For problem 4.0.1 in project 3
+% This file calculates and plots the relaxation
+% across various stimulation periods. For problem 4.0.2 in project 3
 
 % Define constants
 a = 0.15;
@@ -11,34 +11,25 @@ mu_1 = 0.2;
 mu_2 = 0.3;
 epsilon_0 = 0.002;
 v_c = 0.1; % new critical voltage constant
-ADP_0 = []; % empty array to store adp values
+h_min = []; % empty array to store h_min values
 tspan = linspace(0,1000,5001);
 
 % Define our stimulation function
 S = @(t, T) 0.25*(heaviside(mod(t,T)-10) - heaviside(mod(t,T)-14));
 
-% Calculate adp values across several stimulation periods
+% Calculate h_min values across several stimulation periods
 for T = [50 60 70 80 90 100]
     x=zeros(1,2);
     f=@(t,x) [k.*x(1).*(a - x(1)).*(x(1) - 1) - x(2).*x(1) + S(t, T); ...
               -(epsilon_0 + (x(2)*mu_1)/(mu_2 + x(1)))*(x(2) - k*x(1)*(a - x(1) + 1))];
     [~,y1] = ode45(f, tspan, [0.0 0.0]);
     
-    % Grab values above and below the critical voltage
-    above_critical = flip(find(y1(:,1) >= v_c));
-    below_critical = flip(find(y1(:,1) < v_c));
-    
-    % find ADP
-    if (above_critical(1) > below_critical(1))
-        % tspan end mid "beat"
-        temp = flip(find(y1(1:below_critical(1),1) >= v_c));
+    % find h_min
+    if min(y1(end-floor(5*T/2):end,2)) ~= y1(end,2) % if the smallest h value is at the end, then tspan ends mid beat
+        h_min = [h_min; [T, min(y1(end-floor(5*T/2):end,2))]];
     else
-        temp = flip(find(y1(:,1) >= v_c));
+        h_min = [h_min; [T, min(y1(end-5*T:end-floor(5*T/2),2))]];
     end
-    t_down = temp(1);
-    temp = flip(find(y1(1:t_down,1) < v_c));
-    t_up = temp(1)+1;
-    ADP_0 = [ADP_0; [T,(t_down-t_up)]];
 end
 
 % Colors for the lines that will be plotted
@@ -65,11 +56,11 @@ ax = gca;
 ax.FontName = 'LaTeX';
 ax.TickLabelInterpreter = 'LaTeX';
 ax.FontSize = 16;
-ax.YLim = [80, 105];
+ax.YLim = [0.015, 0.045];
 ax.XLim = [50, 100];
 ax.XLabel.Interpreter = 'LaTeX';
 ax.YLabel.Interpreter = 'LaTeX';
-ax.YLabel.String = '"Steady State" Action Potential Duration (t)';
+ax.YLabel.String = 'Relaxation ($\overline{h}$)';
 ax.XLabel.String = 'Stimulation Period (T)';
 ax.ColorOrder = colors;
 ax.Box = 'off';
@@ -82,19 +73,19 @@ ax.YMinorGrid = 'off';
 
 % Plot the functions
 hold on;
-p = plot(ADP_0(:,1), ADP_0(:,2));
+p = plot(h_min(:,1), h_min(:,2));
      
 % Set line widths
 set(p, 'LineWidth', 2);
 
 % Add a legend
-lgd = legend('$ADP_0$');
+lgd = legend('$\overline{h}$');
 lgd.Box = 'off';
 lgd.Interpreter = 'LaTeX';
 lgd.TextColor = [29, 29, 29]/255;
-lgd.Location = 'northwest';
+lgd.Location = 'northeast';
 
 % Set title properties
-t = title("$ADP_0$ vs Stimulation Period");
+t = title("$\overline{h}$ vs Stimulation Period");
 t.Color = [29, 29, 29]/255;
 t.Interpreter = 'LaTeX';

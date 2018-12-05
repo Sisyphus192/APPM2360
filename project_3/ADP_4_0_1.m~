@@ -24,7 +24,8 @@ for T = [50 60 70 80 90 100]
               -(epsilon_0 + (x(2)*mu_1)/(mu_2 + x(1)))*(x(2) - k*x(1)*(a - x(1) + 1))];
     [~,y1] = ode45(f, tspan, [0.0 0.0]);
     
-    % Grab values above and below the critical voltage
+    % Grab values above and below the critical voltage (flipped so last is
+    % first
     above_critical = flip(find(y1(:,1) >= v_c));
     below_critical = flip(find(y1(:,1) < v_c));
     
@@ -41,8 +42,10 @@ for T = [50 60 70 80 90 100]
     ADP_0 = [ADP_0; [T,(t_down-t_up)]];
 end
 
+
 % Colors for the lines that will be plotted
-colors = [112, 44, 140]/255;
+colors = [161, 202, 241;
+          190, 0, 50]/255;
 
 % Set the figure properties
 fig = figure(1);
@@ -53,6 +56,7 @@ fig.PaperPositionMode = 'manual';
 fig.PaperPosition = [0, 0, 10, 6.18];
 fig.PaperSize = [10, 6.18];
 fig.Position = [0.1, 0.1, 9.9, 6.08];
+
 
 % Background color
 fig.Color = [253, 253, 253]/255;
@@ -69,8 +73,8 @@ ax.YLim = [80, 105];
 ax.XLim = [50, 100];
 ax.XLabel.Interpreter = 'LaTeX';
 ax.YLabel.Interpreter = 'LaTeX';
-ax.YLabel.String = '"Steady State" Action Potential Duration (t)';
-ax.XLabel.String = 'Stimulation Period (T)';
+ax.YLabel.String = 'Voltage and Gating Variable';
+ax.XLabel.String = 'time (t)';
 ax.ColorOrder = colors;
 ax.Box = 'off';
 ax.LineWidth = 1.5;
@@ -82,19 +86,21 @@ ax.YMinorGrid = 'off';
 
 % Plot the functions
 hold on;
-p = plot(ADP_0(:,1), ADP_0(:,2));
+p = [plot(ADP_0(:,1), ADP_0(:,2))];
      
 % Set line widths
 set(p, 'LineWidth', 2);
 
 % Add a legend
-lgd = legend('$ADP_0$');
-lgd.Box = 'off';
+lgd = legend('$v(t)$', ... 
+             '$h(t)$');
+lgd.Box = 'on';
 lgd.Interpreter = 'LaTeX';
 lgd.TextColor = [29, 29, 29]/255;
-lgd.Location = 'northwest';
+lgd.Location = 'best';
+lgd.Units = 'inches';
+legend_size = get(lgd, 'position')
 
-% Set title properties
-t = title("$ADP_0$ vs Stimulation Period");
+t = title("$v(t)$ and $h(t)$ with Periodic Stimulus");
 t.Color = [29, 29, 29]/255;
 t.Interpreter = 'LaTeX';
